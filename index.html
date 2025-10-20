@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ankazcx's Script</title>
+  <title>ZEROSCRIPT</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -56,7 +56,6 @@
       padding: 20px 14px;
       text-align: center;
       backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
       transition: transform 0.3s ease;
     }
 
@@ -64,13 +63,12 @@
       font-size: 1.6em;
       margin-bottom: 18px;
       color: #ffffff;
-      text-shadow: 0 0 14px rgba(255, 255, 255, 1),
-                   0 0 26px rgba(255, 255, 255, 0.95);
+      text-shadow: 0 0 14px rgba(255, 255, 255, 1), 0 0 26px rgba(255, 255, 255, 0.95);
     }
 
     .card button {
-      background-color: #555555;
-      color: #ffffff;
+      background-color: #555;
+      color: #fff;
       border: none;
       padding: 14px 0;
       width: 100%;
@@ -79,7 +77,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.15s ease, color 0.15s ease, text-shadow 0.2s ease;
-      text-shadow: 0 0 10px #ffffff, 0 0 18px #ffffff, 0 0 26px #ffffff;
+      text-shadow: 0 0 10px #fff, 0 0 18px #fff, 0 0 26px #fff;
     }
 
     .card button.green-glow {
@@ -88,7 +86,7 @@
     }
 
     .card button:hover {
-      background-color: #666666;
+      background-color: #666;
     }
 
     @media (max-width: 700px) {
@@ -105,15 +103,19 @@
   <div class="container">
     <div class="card">
       <h2>Plants Vs Brainrot</h2>
-      <button onclick="copyToClipboard(`loadstring(game:HttpGet('https://raw.githubusercontent.com/Lackofmoneyjeez/PLANTS-VS-BRAINROT/refs/heads/main/FSFA'))()`, this)">Copy Script</button>
+      <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Lackofmoneyjeez/PLANTS-VS-BRAINROT/refs/heads/main/FSFA\'))()' , this)">Copy Script</button>
     </div>
     <div class="card">
       <h2>Grow A Garden</h2>
-      <button onclick="copyToClipboard(`loadstring(game:HttpGet('https://raw.githubusercontent.com/Lackofmoneyjeez/Growagardenhacks/refs/heads/main/Script'))()`, this)">Copy Script</button>
+      <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Lackofmoneyjeez/Growagardenhacks/refs/heads/main/Script\'))()', this)">Copy Script</button>
     </div>
     <div class="card">
       <h2>Pls Donate</h2>
-      <button onclick="copyToClipboard(`loadstring(game:HttpGet('https://pastefy.app/1txRix8L/raw'))()`, this)">Copy Script</button>
+      <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://pastefy.app/1txRix8L/raw\'))()', this)">Copy Script</button>
+    </div>
+    <div class="card">
+      <h2>Steal A Brainrot</h2>
+      <button onclick="copyToClipboard('loadstring(game:HttpGet(\'https://raw.githubusercontent.com/Lackofmoneyjeez/Steal-a-brainrot-hacks/refs/heads/main/script\'))()', this)">Copy Script</button>
     </div>
   </div>
 
@@ -121,28 +123,53 @@
     let isNotificationVisible = false;
 
     function copyToClipboard(text, button) {
-      if (isNotificationVisible) return;
+      // Modern clipboard API (HTTPS or localhost)
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showNotification(button);
+        }).catch(() => {
+          fallbackCopy(text, button);
+        });
+      } else {
+        fallbackCopy(text, button);
+      }
+    }
 
-      navigator.clipboard.writeText(text).then(function () {
-        const card = button.closest('.card');
-        card.style.transform = 'scale(1.08)';
-        setTimeout(() => {
-          card.style.transform = 'scale(1)';
-        }, 150);
+    function fallbackCopy(text, button) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showNotification(button);
+      } catch (err) {
+        alert("Copy failed. Please copy manually.");
+      }
+      document.body.removeChild(textarea);
+    }
 
-        button.classList.add('green-glow');
-        setTimeout(() => {
-          button.classList.remove('green-glow');
-        }, 600);
+    function showNotification(button) {
+      const card = button.closest('.card');
+      card.style.transform = 'scale(1.08)';
+      setTimeout(() => {
+        card.style.transform = 'scale(1)';
+      }, 150);
 
-        const notification = document.getElementById('notification');
+      button.classList.add('green-glow');
+      setTimeout(() => {
+        button.classList.remove('green-glow');
+      }, 600);
+
+      const notification = document.getElementById('notification');
+      if (!isNotificationVisible) {
         isNotificationVisible = true;
         notification.classList.add('show');
         setTimeout(() => {
           notification.classList.remove('show');
           isNotificationVisible = false;
         }, 1000);
-      });
+      }
     }
   </script>
 
