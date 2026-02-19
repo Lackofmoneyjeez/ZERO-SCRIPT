@@ -483,10 +483,10 @@ task.spawn(
 
         WindUI:Popup(
             {
-                Title = "Scriopt Lynx",
+                Title = "x",
                 Icon = "cuboid",
                 IconThemed = true,
-                Content = "Hey everyone, Here's the latest Adopt Me visual script – enjoy! 🎉\nMake sure to join our Discord server for more updates, new features, and community support.",
+                Content = "",
                 Buttons = {
                     {
                         Title = "Cancel",
@@ -567,37 +567,7 @@ task.spawn(
         local petName = nil
         local petType = "FR"
 
-        DiscordTab:Paragraph(
-            {
-                Title = "Join our Discord!",
-                Desc = "Join our Discord to Get Best Scripts!",
-                Image = "users",
-                Color = "Blue"
-            }
-        )
-
-DiscordTab:Button(
-    {
-        Title = "Copy Invite",
-        Icon = "users",
-        Callback = function()
-            task.spawn(
-                function()
-                    setclipboard("https://discord.gg/SnXQCYzGjx")
-                    WindUI:Notify(
-                        {
-                            Title = "Discord Invite Copied!",
-                            Content = "The invite link has been copied to your clipboard.",
-                            Icon = "users",
-                            Duration = 4,  -- Shows for 4 seconds
-                            Color = "Green"  -- Optional: makes it look positive
-                        }
-                    )
-                end
-            )
-        end
-    }
-)
+        
 
         PetsTab:Paragraph(
             {
@@ -722,4 +692,5 @@ DiscordTab:Button(
             }
         )
     end
+
 )
